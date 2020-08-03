@@ -1,0 +1,237 @@
+html{
+  background: radial-gradient(circle at 50%, darkgoldenrod 30%, purple 130%) ;
+  cursor:default;
+  background-size: contain;
+}
+body {
+  font: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue","Erica One"
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+@media screen and(min-width: 500px){
+  .title{
+    font-size: 5em;
+  }
+  .game{
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+}
+
+@font-face{
+  font-family: "Erica One";
+  src: url('https://fonts.gstatic.com/s/ericaone/v10/WBLnrEXccV9VGrOKmGDFXEXN.woff2') format('woff2');
+  font-style: normal;
+}
+#error{
+  position: absolute;
+  color: red;
+  background-color: whitesmoke;
+}
+#left-post{
+  display: inline-flex;
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  height: 90%;
+  width: 5%;
+  background: repeating-linear-gradient(#894343 31px, goldenrod 78px);
+}
+#right-post{
+  display: inline-flex;
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  height: 90%;
+  width: 5%;
+  background: repeating-linear-gradient(#894343 31px, goldenrod 78px);
+}
+
+.title{
+  display: block;
+  position: relative;
+  line-height: 0;
+  top: 30vh;
+  margin: 0;
+  font-family: "Erica One";
+  color: rgb(250, 212, 4);
+  font-size: 14vw;
+  text-align: center;
+  transform-origin: top;
+  transform: scaleY(3);
+  -webkit-transpodium: scaleY(3);
+
+}
+/* TODO create animation for button */
+.play{
+  display: block;
+  position: relative;
+  top: 80vh;
+  margin: auto;
+  border-radius: 20px;
+  width: 10vw;
+  height: 5vh;
+  cursor: pointer;
+  background-color: rgb(39, 57, 59);
+  color: rgb(251, 255, 0);
+}
+#restart{
+  display: block;
+  border-radius: 20px;
+  width: 10vw;
+  height: 5vh;
+  cursor: pointer;
+  background-color: rgb(39, 57, 59);
+  color: rgb(251, 255, 0);
+  position: relative;
+}
+.podium{
+  display: block;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  grid-area: podium;
+}
+#timer{
+  -webkit-appearance: none;
+  display: block;
+  background-color: rgb(128, 128, 128);
+  height: 3px;
+  width: 100%;
+}
+#timer::-webkit-progress-value{
+  background-color: red;
+}
+
+#timer::-webkit-progress-inner-element{
+  background-color: rgba(128, 128, 128, 0.774);
+}
+
+
+#timer::-webkit-progress-bar{
+  background-color: linear-gradient(gray, );
+}
+#player{
+  background: dodgerblue;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 5vh;
+  height: 60%;
+}
+
+#score{
+  background-color: #281dbf;
+  color: white;
+  font-size: larger;
+  margin: 0;
+  text-align: center;
+  height: 40%;
+  line-height: 3;
+}
+
+.columns{
+  display: inline;
+  clear: both;
+}
+.game button{
+  background: rgb(60, 102, 218);
+  border: 1px solid black;
+  color: goldenrod;
+  box-sizing: border-box;
+  font-size: 2vw;
+  height: inherit;
+  width: inherit;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+#categories button{
+  display: block;
+  color: antiquewhite;
+  font-size: 1.8vw;
+  padding: 0;
+}
+
+#categories div {
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+}
+
+#categories{
+  grid-area: categories;
+}
+#amount{
+  display: flex;
+  grid-area: amount;
+}
+
+#answer{
+  margin-left: 25%;
+  margin-top: 5%;
+  width: 50%;
+  font-size: xx-large;
+  text-align: center;
+}
+
+.answer-background{
+  background: skyblue;
+  grid-area: podium;
+}
+
+#amount>div{
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%
+}
+#amount button:disabled{
+  content: none;
+  cursor: unset;
+}
+.game{
+  display: grid;
+  grid-auto-rows:  1fr 3fr 1fr;
+  grid-template-areas: " categories categories categories categories categories categories "
+                       " amount amount amount amount amount amount "
+                       " podium podium podium podium podium podium ";
+  top: 10%;
+  left: 10%;
+  position: fixed;
+  width: 80%;
+  height: 90%;
+}
+
+.question-active h1{
+  /* margin-top: 25%; */
+  /* text-align-last: center; */
+  /* margin-left: 5%;
+  margin-right: 5%; */
+  margin: auto;
+}
+
+.question-active{
+  height: 72%;
+  width: inherit;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  color: antiquewhite;
+  border-color: black;
+  background-color: rgb(60, 102, 218);;
+  text-align: center;
+  display: flex;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
