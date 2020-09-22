@@ -1,3 +1,8 @@
+:root{
+  --border-radius-button: 4vw;
+  --button-width-mobile: 25%;
+  --button-fonts: Fira;
+}
 html{
   background: radial-gradient(circle at 50%, darkgoldenrod 30%, purple 130%) ;
   cursor:default;
@@ -12,15 +17,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
-@media screen and(min-width: 500px){
-  .title{
-    font-size: 5em;
+
+@media screen and (max-aspect-ratio: 2/1){
+  body .title{
+    font-size: 15vw;
+    /* transform: scalex(5); */
   }
-  .game{
+  body .game{
+    height: 100%;
     width: 100%;
     top: 0;
     left: 0;
   }
+  body .question-active{
+    top: 0;
+    left: 0;
+    height: 80%;
+  }
+  body #categories button{
+    font-size: 2.8vw;
+  }
+  body #form{
+    width: 50%;
+  }
+  body #form>#name{
+    width: 80%;
+    margin: 5%;
+    font-size: xx-large;
+    box-sizing: border-box;
+  }
+  body .play, body #form>#submit{
+    font-size: xx-large;
+    box-sizing: content-box;
+  }
+  
 }
 
 @font-face{
@@ -28,10 +58,36 @@ body {
   src: url('https://fonts.gstatic.com/s/ericaone/v10/WBLnrEXccV9VGrOKmGDFXEXN.woff2') format('woff2');
   font-style: normal;
 }
+.nowifi{
+  display: block;
+  margin: auto;
+  height: 25%;
+  width: 25%;
+  fill: rgb(206, 48, 28);
+}
 #error{
-  position: absolute;
-  color: red;
+  width: fit-content;
+  margin: auto;
+  padding: 3px 15px;
+  border-radius: 35px;
+  border: solid red 5px;
+  color: black;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px 10px indianred;
   background-color: whitesmoke;
+  text-align: center;
+  
+}
+#top-header{
+  display: block;
+  width: 95%;
+  height:10%;
+  position: fixed;
+  top: 0;
+  left: 2.5%;
+  background: repeating-linear-gradient(to top,brown 65%, transparent),repeating-linear-gradient(aliceblue 20px,gold 5px, red 45px);
+  border-style: ridge;
+  border-radius: 10px;
 }
 #left-post{
   display: inline-flex;
@@ -73,22 +129,49 @@ body {
   position: relative;
   top: 80vh;
   margin: auto;
-  border-radius: 20px;
+  border-radius: var(--border-radius-button);
+  font-family: var(--button-fonts);
+  font-size: 2rem;
   width: 10vw;
-  height: 5vh;
+  height: fit-content;
+  padding-top: .5vh;
+  padding-bottom: .5vh;
+  min-height: min-content;
   cursor: pointer;
   background-color: rgb(39, 57, 59);
   color: rgb(251, 255, 0);
 }
-#restart{
+#round{
+  color: black;
+  position: fixed;
+  padding-left: 3px;
+  padding-right: 3px;
+  bottom: 4%;
+  z-index: 1;
+  right: 15%;
+  font-size: 4vh;
+  width: fit-content;
+  height: 5%;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: whitesmoke;
+}
+#restart {
   display: block;
+  position: fixed;
+  left: 15%;
+  bottom: 4%;
+  z-index: 1;
   border-radius: 20px;
-  width: 10vw;
-  height: 5vh;
+  width: 5%;
+  height: 5%;
   cursor: pointer;
-  background-color: rgb(39, 57, 59);
+  background-color: rgb(215, 225, 236);
   color: rgb(251, 255, 0);
-  position: relative;
+}
+.restart-svg{
+  height: 100%;
+  width: 100%;  
 }
 .podium{
   display: block;
@@ -124,16 +207,101 @@ body {
   color: white;
   font-size: 5vh;
   height: 60%;
+  line-height: 2;
 }
+
+.askName-active{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: #2b1f1f61;
+  text-align: center;
+  color: black;
+  font-size: 5vh;
+  height: 100%;
+  width: 95%;
+}
+#form{
+  height: 20%;
+  position: relative;
+  margin: auto;
+  top: 50%;
+  border-radius: 40px;
+  width: 40%;
+  background: white;
+  padding-top: 20px;
+}
+
+#loading{
+  top: 50%;
+  width: 35%;
+  height: fit-content;
+  text-align: center;
+  color: whitesmoke;
+  background-color: rgb(123, 191, 218);
+  font-size: xx-large;
+}
+
+#final-score{
+  height: fit-content;
+  width: 25%;
+  text-align: center;
+  font-size: 5em;
+  top: 0;
+  font: bolder;
+}
+#final-score > p{
+  color: gold;
+}
+#final-score > button{
+  border-radius: var(--border-radius-button);
+  width: 10vw;
+  height: 5vh;
+  cursor: pointer;
+  background-color: rgb(39, 57, 59);
+  color: rgb(251, 255, 0);
+}
+
+dialog::backdrop{
+  background: #2b1f1f61;
+}
+
+#form > #name{
+  text-align: center;
+  border-radius: var(--border-radius-button);
+  height: 5vh;
+  width: 20vw;
+  font-size: x-large;
+  border-color: black;
+  background-color: whitesmoke;
+}
+#form > #submit , #error > button{
+  display: block;
+  border-radius: var(--border-radius-button);
+  height: fit-content;
+  padding-bottom: .5vh;
+  padding-top: .5vh;
+  width: 10vw;
+  font: 2rem var(--button-fonts);
+  cursor: pointer;
+  margin: auto;
+  color: rgb(251, 255, 0);
+  border: black;
+  background: rgb(39, 57, 59);
+  margin-top: 15px;
+}
+
 
 #score{
   background-color: #281dbf;
   color: white;
-  font-size: larger;
+  font-size: 3vh;
   margin: 0;
   text-align: center;
   height: 40%;
-  line-height: 3;
+  line-height: 2;
 }
 
 .columns{
@@ -145,7 +313,7 @@ body {
   border: 1px solid black;
   color: goldenrod;
   box-sizing: border-box;
-  font-size: 2vw;
+  font-size: 3.5vw;
   height: inherit;
   width: inherit;
   text-align: center;
@@ -157,6 +325,7 @@ body {
   display: block;
   color: antiquewhite;
   font-size: 1.8vw;
+  height: 100%;
   padding: 0;
 }
 
@@ -178,12 +347,12 @@ body {
   margin-left: 25%;
   margin-top: 5%;
   width: 50%;
-  font-size: xx-large;
+  font-size: 5vh;
   text-align: center;
 }
 
 .answer-background{
-  background: skyblue;
+  background: dodgerblue;
   grid-area: podium;
 }
 
@@ -219,6 +388,7 @@ body {
 }
 
 .question-active{
+  font-size: 2vw;
   height: 72%;
   width: inherit;
   position: fixed;
