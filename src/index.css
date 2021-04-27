@@ -7,6 +7,7 @@ html{
   background: radial-gradient(circle at 50%, darkgoldenrod 30%, purple 130%) ;
   cursor:default;
   background-size: contain;
+  font-weight: normal;
 }
 body {
   font: 14px;
@@ -17,12 +18,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
+h1{
+  font-weight: normal;
+}
 
-@media screen and (max-aspect-ratio: 2/1){
+@media screen and (max-aspect-ratio: 3/2){
   body .title{
     font-size: 15vw;
     /* transform: scalex(5); */
   }
+  body{
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
   body .game{
     height: 100%;
     width: 100%;
@@ -32,23 +40,33 @@ body {
   body .question-active{
     top: 0;
     left: 0;
-    height: 80%;
-  }
+    }
   body #categories button{
     font-size: 2.8vw;
+    width: 16.7%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
   }
   body #form{
-    width: 50%;
+    width: 60%;
+    box-sizing: content-box;
   }
   body #form>#name{
     width: 80%;
     margin: 5%;
-    font-size: xx-large;
-    box-sizing: border-box;
+    font-size: x-large;
+    box-sizing: content-box;
   }
   body .play, body #form>#submit{
-    font-size: xx-large;
+    font-size: 3vh;
+    width: 30%;
     box-sizing: content-box;
+    height: min-intrinsic;
+  }
+  body h2{
+    font-size: 2vw;
   }
   
 }
@@ -56,7 +74,17 @@ body {
 @font-face{
   font-family: "Erica One";
   src: url('https://fonts.gstatic.com/s/ericaone/v10/WBLnrEXccV9VGrOKmGDFXEXN.woff2') format('woff2');
+  /*TODO add more font mime types */
   font-style: normal;
+}
+h2{
+  font-size: 2vh;
+  font-weight: 400;
+  position: absolute;
+  text-align: center;
+  bottom: 1%;
+  left: 3%;
+  color: ivory;
 }
 .nowifi{
   display: block;
@@ -118,6 +146,7 @@ body {
   color: rgb(250, 212, 4);
   font-size: 14vw;
   text-align: center;
+  text-shadow: 5px 8px #64444C;
   transform-origin: top;
   transform: scaleY(3);
   -webkit-transpodium: scaleY(3);
@@ -126,8 +155,10 @@ body {
 /* TODO create animation for button */
 .play{
   display: block;
-  position: relative;
-  top: 80vh;
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  right: 0;
   margin: auto;
   border-radius: var(--border-radius-button);
   font-family: var(--button-fonts);
@@ -163,18 +194,19 @@ body {
   bottom: 4%;
   z-index: 1;
   border-radius: 20px;
-  width: 5%;
+  width: 3%;
   height: 5%;
   cursor: pointer;
   background-color: rgb(215, 225, 236);
   color: rgb(251, 255, 0);
+  box-sizing: content-box;
 }
 .restart-svg{
   height: 100%;
   width: 100%;  
 }
 .podium{
-  display: block;
+  display: grid;
   margin: auto;
   height: 100%;
   width: 100%;
@@ -206,7 +238,6 @@ body {
   width: 100%;
   color: white;
   font-size: 5vh;
-  height: 60%;
   line-height: 2;
 }
 
@@ -232,10 +263,16 @@ body {
   width: 40%;
   background: white;
   padding-top: 20px;
+  box-sizing: content-box;
 }
 
 #loading{
+  display: block;
+  position: absolute;
+  margin: auto;
   top: 50%;
+  left: 0;
+  right: 0;
   width: 35%;
   height: fit-content;
   text-align: center;
@@ -245,6 +282,9 @@ body {
 }
 
 #final-score{
+  display: block;
+  margin: auto;
+  height: intrinsic;
   height: fit-content;
   width: 25%;
   text-align: center;
@@ -283,7 +323,7 @@ dialog::backdrop{
   height: fit-content;
   padding-bottom: .5vh;
   padding-top: .5vh;
-  width: 10vw;
+  width: 30%;
   font: 2rem var(--button-fonts);
   cursor: pointer;
   margin: auto;
@@ -300,7 +340,6 @@ dialog::backdrop{
   font-size: 3vh;
   margin: 0;
   text-align: center;
-  height: 40%;
   line-height: 2;
 }
 
@@ -337,10 +376,12 @@ dialog::backdrop{
 
 #categories{
   grid-area: categories;
+  height: 100%;
 }
 #amount{
   display: flex;
   grid-area: amount;
+  height: 100%;
 }
 
 #answer{
@@ -380,20 +421,21 @@ dialog::backdrop{
 }
 
 .question-active h1{
-  /* margin-top: 25%; */
-  /* text-align-last: center; */
-  /* margin-left: 5%;
-  margin-right: 5%; */
+  position: sticky;
+  top: 20px;
   margin: auto;
+  
 }
 
 .question-active{
   font-size: 2vw;
-  height: 72%;
-  width: inherit;
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  /* height: 72%;
   position: fixed;
   top: 10%;
-  left: 10%;
+  left: 10%; */
   color: antiquewhite;
   border-color: black;
   background-color: rgb(60, 102, 218);;
