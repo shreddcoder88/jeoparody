@@ -1,4 +1,4 @@
-# `Jeoparody`
+# [`Jeoparody`](https://jeoparody.projekjv.dev/)
  A mock of jeopardy game I remade with Create React App from my older Jquery app
 
 ## Jservice 
@@ -12,4 +12,3 @@ Uses [https://jservice.io/](jservice) API for genrating clues.
     <li>Animations</li>
     <li>Answer via Voice</li>
 </ul>
-
