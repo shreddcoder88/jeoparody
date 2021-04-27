@@ -6,8 +6,6 @@ import * as serviceWorker from './serviceWorker';
 //import * as firebase from "firebase/app";
 import {ReactComponent as Restart} from "./refresh-24px.svg";
 import {ReactComponent as NoWifi} from "./wifi_off-black-24dp.svg"
-import "firebase/auth";
-import "firebase/messaging";
 
 
 function getCategories(nextPage) {  //TODO Add pagination for categories
@@ -83,13 +81,22 @@ class Column extends React.Component {
             </div>);
                 }   
 }
+
+function NoInternet(props){
+    return(<div>
+              <NoWifi/>
+              <h2>No Internet Connection</h2>
+              <button>X</button>  
+           </div>
+    )
+}
+
 function Podium(props){
     return(<div className="podium">
                 <p id="score" title="Score">${props.score}</p>
                 <p id="player">{props.name}</p>
             </div>)
 }
-//TODO make an Answer input component 
 function Answer(props){
     return ( <div className="answer-background">
                 <progress id="timer" value={props.timer} max="60"></progress>
@@ -137,6 +144,7 @@ class Board extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         
     }
+   
 
     handleSubmit(e){
         e.preventDefault();
@@ -145,7 +153,7 @@ class Board extends React.Component {
 
     endGame(){
         //document.querySelector("dialog").showModal();
-        this.setState({playing: false, nameActive: false, finalScore: true, round: 1})        
+        this.setState({playing: false, nameActive: false, finalScore: true, round: 1, questionsLeft: 30})        
     }
     toggleDialog(open){
         if(open){this.setState({finalScore: true})};
@@ -161,6 +169,7 @@ class Board extends React.Component {
         let nextPage = this.state.offset;
         let categories = await getCategories(nextPage);
         if (!categories) return;
+        if(categories ==="error"){this.setState({noInternet: true}); return};
         let clues = await getClues(categories);
         if(!clues){return this.nextRound()}
         this.setState({clue: clues, category: categories, questionsLeft: 30});
@@ -172,15 +181,25 @@ class Board extends React.Component {
 
     checkAnswer(){//TODO create a regexp that takes <i><i/> to literal from answers
                     //TODO add "$" to score 
-                    //TODO color code score green/red for positive/negative values
+                    //TODO color code score green/red for increase/decrease values
                     //TODO fix regexp conflict with multiple identical prefixes
                     //TODO make the right answer in parenthesis as optional
         const answer = document.getElementById("answer").value.toLowerCase();
-        // eslint-disable-next-line
-        const correct = answer.toLowerCase().replaceAll(/a\s|the\s|an\s|<i>|<\/i>/g, "") == this.state.answer.toLowerCase().replaceAll(/a\s|the\s|an\s|<i>|<\/i>/g, ""); 
+        let correct;
+        
+
+        try {// eslint-disable-next-line
+            correct = answer.toLowerCase().replaceAll(/a\s|the\s|an\s|<i>|<\/i>/g, "") == this.state.answer.toLowerCase().replaceAll(/a\s|the\s|an\s|<i>|<\/i>/g, ""); 
+        } catch (error) {
+
+            console.error(error, correct);
+            // eslint-disable-next-line
+            correct = answer.toLowerCase().replace(/a\s|the\s|an\s|<i>|<\/i>/g, "") == this.state.answer.toLowerCase().replace(/a\s|the\s|an\s|<i>|<\/i>/g, ""); 
+            console.info("Correct answer:", answer.toLowerCase().replaceAll(/a\s|the\s|an\s|<i>|<\/i>/g, ""));
+            //Use a different method other than replaceAll
+        }
         console.info("Raw Answer: ",answer)
         console.log("User answer:", this.state.answer.toLowerCase());
-        console.info("Correct answer:", answer.toLowerCase().replaceAll(/a\s|the\s|an\s|<i>|<\/i>/g, ""));
         const value = this.state.value;
         console.info(typeof value);
         console.log(correct ? " Answer is correct!" : "Answer is wrong!");
@@ -191,7 +210,7 @@ class Board extends React.Component {
         console.info("score",this.state.score);
         this.setState({correctAnswerIsActive: true});
         setTimeout(()=>{this.setState({correctAnswerIsActive: false})},5000);
-        if(this.state.questionsLeft === 0){
+        if(this.state.questionsLeft < 1){
             this.setState({round: this.state.round + 1})
             this.nextRound();
         } 
@@ -206,11 +225,15 @@ class Board extends React.Component {
          console.log("Value:", value + " Is"+ typeof value)
          this.setState({questionIsActive: true, question: question.clues[ind].question, answer: question.clues[ind].answer, value: value});
         var answerTimer = setInterval(()=>{this.setState({timerValue: this.state.timerValue + 10}); 
-            if(this.state.timerValue > 60)
-            {
-                this.checkAnswer();
-                this.setState({questionIsActive: false, timerValue: 0});
-                clearInterval(answerTimer);
+                if(this.state.timerValue > 60)
+                {
+                    this.checkAnswer();
+                    this.setState({questionIsActive: false, timerValue: 0});
+                    clearInterval(answerTimer);
+                }
+                if(!this.state.playing) {
+                    this.setState({questionIsActive: false, timerValue: 0});
+                    clearInterval(answerTimer);
                 }
             }, 2000);
          //TODO sync setTimeout with timer progress bar
@@ -275,7 +298,7 @@ class Board extends React.Component {
     }
 
     play(){
-        this.setState({playing: false, noInternet: false, loading: false});
+        this.setState({playing: false, noInternet: false, loading: false, questionsLeft: 30});
         this.setState({nameActive: true})       
     }
     
@@ -305,15 +328,17 @@ class Board extends React.Component {
 
     render() {
         const intro = "JEOPARODY" //TODO Redesign the logo
+        const copyright = "Clues are pulled from jservice. © jeopardy productions, inc. This app is not affiliated with jeopardy productions, inc."
         if(!this.state.noInternet){
         return (
             <div>
                 
-                {this.state.playing ? null :  <div><h1 className="title">{intro}</h1><button className="play" value="PLAY" onClick={()=>this.play()}>Play</button></div>}
+        {this.state.playing ? null :  <div><h1 className="title">{intro}</h1><button className="play" value="PLAY" onClick={()=>this.play()}>Play</button> <h2>{copyright}</h2></div>}
                 {this.state.nameActive ? <Player className="askName-active" onClick={() => this.start()} handleSubmit={this.handleSubmit}/> : null}
                 {/* {this.state.loading ? document.querySelector("dialog").showModal() : null } */}
                 {this.state.finalScore ? <dialog id="final-score" open>Your Score<br></br> <p>${this.state.score}</p><button onClick={()=>this.toggleDialog(false)}>close</button></dialog> : null}
                 {this.state.loading ? <dialog id="loading" autoFocus="true" open>Loading</dialog> : null}
+                {this.state.noInternet ? <NoInternet/> : null}
                
                 {this.state.playing ? 
                     <div className="stage" >
