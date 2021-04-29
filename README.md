@@ -11,4 +11,6 @@ Uses [https://jservice.io/](jservice) API for genrating clues.
     <li>Stats/Leaderboard</li>
     <li>Animations</li>
     <li>Answer via Voice</li>
+    <li>Difficulty options</li>
+
 </ul>
