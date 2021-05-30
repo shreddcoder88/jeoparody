@@ -5,7 +5,7 @@
 
 ## Jservice 
 
-Uses [jservice](https://jservice.io/) API for genrating clues.
+Uses [jservice](https://jservice.io/) API for geenrating clues.
 
 ## Wish List
 <ul>
