@@ -117,7 +117,7 @@ function Question(props){
 function Player(props){
     return (<div className={props.className}>
                 <form id="form" onSubmit={props.handleSubmit}>
-                    <input id="name" type="text" form="form" autoComplete="off" autoFocus={true} placeholder="Name" />
+                    <input id="name" type="text" form="form" autoComplete="off" autoFocus={true} placeholder="Name" required="true"/>
                     <button id="submit" type="button" onClick={props.onClick} value="Start" >Start</button>
                 </form>
             </div>)
@@ -134,7 +134,7 @@ class Board extends React.Component {
             round: 1,
             timerValue: 0,
             nameActive: false,
-            name: "You",
+            name: "Player",
             loading: false,
             finalScore: false
         };
@@ -148,6 +148,10 @@ class Board extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
+        const name = document.getElementById("name").value;
+        if(name !=="") this.setState({name: name});
+    
+       
         this.start();
     }
 
@@ -307,7 +311,7 @@ class Board extends React.Component {
         //if(!document.getElementById("loading").open) document.getElementById("loading").showModal();
         this.setState({loading: true})
         const name = document.getElementById("name").value;
-        this.setState({name: name});
+        // this.setState({name: name});
         let startOffset = Math.floor(Math.random() *(18409) + 1);
         this.setState({offset: startOffset, score: 0});
         console.info("Starting ID: ", startOffset)
@@ -334,7 +338,7 @@ class Board extends React.Component {
             <div>
                 
         {this.state.playing ? null :  <div><h1 className="title">{intro}</h1><button className="play" value="PLAY" onClick={()=>this.play()}>Play</button> <h2>{copyright}</h2></div>}
-                {this.state.nameActive ? <Player className="askName-active" onClick={() => this.start()} handleSubmit={this.handleSubmit}/> : null}
+                {this.state.nameActive ? <Player className="askName-active" onClick={(e) => this.handleSubmit(e)} handleSubmit={this.handleSubmit}/> : null}
                 {/* {this.state.loading ? document.querySelector("dialog").showModal() : null } */}
                 {this.state.finalScore ? <dialog id="final-score" open>Your Score<br></br> <p>${this.state.score}</p><button onClick={()=>this.toggleDialog(false)}>close</button></dialog> : null}
                 {this.state.loading ? <dialog id="loading" autoFocus="true" open>Loading</dialog> : null}
