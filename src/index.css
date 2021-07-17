@@ -56,7 +56,7 @@ h1{
   body #form>#name{
     width: 80%;
     margin: 5%;
-    font-size: x-large;
+    font-size: xxx-large;
     box-sizing: content-box;
   }
   body .play, body #form>#submit{
@@ -222,11 +222,12 @@ h2{
 #timer::-webkit-progress-value{
   background-color: red;
 }
-
+ #timer::-moz-progress-bar{
+  background-color: red;
+}
 #timer::-webkit-progress-inner-element{
   background-color: rgba(128, 128, 128, 0.774);
 }
-
 
 #timer::-webkit-progress-bar{
   background-color: linear-gradient(gray, );
