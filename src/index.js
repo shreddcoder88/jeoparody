@@ -117,7 +117,7 @@ function Question(props){
 function Player(props){
     return (<div className={props.className}>
                 <form id="form" onSubmit={props.handleSubmit}>
-                    <input id="name" type="text" form="form" autoComplete="off" autoFocus={true} placeholder="Name" required="true"/>
+                    <input id="name" type="text" form="form" autoComplete="name" autoFocus={true} placeholder="Player" required="true"/>
                     <button id="submit" type="button" onClick={props.onClick} value="Start" >Start</button>
                 </form>
             </div>)
@@ -310,7 +310,7 @@ class Board extends React.Component {
     async start() { //TODO add a Name Form
         //if(!document.getElementById("loading").open) document.getElementById("loading").showModal();
         this.setState({loading: true})
-        const name = document.getElementById("name").value;
+        // const name = document.getElementById("name").value;
         // this.setState({name: name});
         let startOffset = Math.floor(Math.random() *(18409) + 1);
         this.setState({offset: startOffset, score: 0});
