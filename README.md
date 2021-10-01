@@ -1,4 +1,5 @@
 # [`Jeoparody`](https://jeoparody.projekjv.dev/)
+![screenshot](src/jeoparody_home.webp)
 
  A mock of jeopardy game I remade with Create React App from my older Jquery app
 
